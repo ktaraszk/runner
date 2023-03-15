@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace GitHub.DistributedTask.WebApi
 {
@@ -27,10 +28,17 @@ namespace GitHub.DistributedTask.WebApi
         }
 
         [JsonProperty("runners")]
-        public List<TaskAgent> Runners
+        public List<Runner> Runners
         {
             get;
             set;
+        }
+
+        public List<TaskAgent> ToTaskAgents()
+        {
+            List<TaskAgent> taskAgents = new List<TaskAgent>();
+
+            return Runners.Select(runner => new TaskAgent() { Name = runner.Name }).ToList();
         }
 
         public ListRunnersResponse Clone()
@@ -38,5 +46,5 @@ namespace GitHub.DistributedTask.WebApi
             return new ListRunnersResponse(this);
         }
     }
-        
+
 }
