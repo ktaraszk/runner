@@ -82,14 +82,14 @@ namespace GitHub.Runner.Common
             }
 
             var response = await RetryRequest(githubApiUrl, githubToken, RequestType.Get, 3, "Failed to get agents pools");
-            var list = StringUtil.ConvertFromJson<ListRunnersResponse>(response);
+            var list = StringUtil.ConvertFromJson<ListRunnersResponse>(response).ToTaskAgents();
 
             if (string.IsNullOrEmpty(agentName))
             {
-                return list.ToTaskAgents();
+                return list;
             }
 
-            return list.ToTaskAgents().Where(x => string.Equals(x.Name, agentName, StringComparison.OrdinalIgnoreCase)).ToList();
+            return list.Where(x => string.Equals(x.Name, agentName, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         public async Task<List<TaskAgentPool>> GetRunnerGroupsAsync(string githubUrl, string githubToken)

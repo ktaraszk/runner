@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 
 namespace GitHub.DistributedTask.WebApi
 {
-
     public class Runner
     {
         /// <summary>
@@ -20,5 +19,4 @@ namespace GitHub.DistributedTask.WebApi
         }
 
     }
-
 }
